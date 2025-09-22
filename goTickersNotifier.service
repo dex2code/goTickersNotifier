@@ -1,0 +1,17 @@
+[Unit]
+Description=goTickersNotifier service (https://github.com/dex2code/goTickersNotifier)
+Wants=network.target
+After=network.target
+
+
+[Service]
+Type=idle
+User=
+WorkingDirectory=
+ExecStart=
+Restart=always
+RestartSec=60
+
+
+[Install]
+WantedBy=multi-user.target

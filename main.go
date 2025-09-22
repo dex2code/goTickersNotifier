@@ -109,7 +109,7 @@ func main() {
 					} else {
 						ticker.LastPrice = stockValue.Price
 						appConfig.Tickers[stockValue.Symbol] = ticker
-						log.Printf("New %q data: %v", stockValue.Symbol, appConfig.Tickers[stockValue.Symbol])
+						log.Printf("TG message sent successfully. New %q price: %f", stockValue.Symbol, ticker.LastPrice)
 					}
 				} else {
 					log.Printf("%q price change (%f -> %f) within the treshold value %f", stockValue.Symbol, ticker.LastPrice, stockValue.Price, ticker.Threshold)
