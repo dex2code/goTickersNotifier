@@ -13,14 +13,10 @@ import (
 
 func main() {
 	log.Println("Tickers Notifier starting...")
-	var err error
-
-	err = checkFileExists(envFilePath)
-	if err != nil {
+	if err := checkFileExists(envFilePath); err != nil {
 		log.Printf("Env file error: %v", err)
 		log.Printf("Trying to create %q file...", envFilePath)
-		err = createDefaultEnv(envFilePath)
-		if err != nil {
+		if err := createDefaultEnv(envFilePath); err != nil {
 			log.Fatalf("Env file error: %v", err)
 		} else {
 			log.Printf("Default Env file created: %q", envFilePath)
@@ -29,12 +25,10 @@ func main() {
 		log.Printf("Found readable env file: %q", envFilePath)
 	}
 
-	err = checkFileExists(configFilePath)
-	if err != nil {
+	if err := checkFileExists(configFilePath); err != nil {
 		log.Printf("Config file error: %v", err)
 		log.Printf("Trying to create %q file...", configFilePath)
-		err = createDefaultConfig(configFilePath)
-		if err != nil {
+		if err := createDefaultConfig(configFilePath); err != nil {
 			log.Fatalf("Config file error: %v", err)
 		} else {
 			log.Printf("Default config file created: %q", configFilePath)
@@ -43,8 +37,7 @@ func main() {
 		log.Printf("Found readable config file: %q", configFilePath)
 	}
 
-	err = godotenv.Load(envFilePath)
-	if err != nil {
+	if err := godotenv.Load(envFilePath); err != nil {
 		log.Fatalf("Cannot load %q file: %v", envFilePath, err)
 	}
 	appConfig.BotToken = os.Getenv("BOT_TOKEN")
@@ -52,8 +45,7 @@ func main() {
 		log.Fatalf("Please edit %q file to set secret bot token", envFilePath)
 	}
 
-	err = readConfig(configFilePath, &appConfig)
-	if err != nil {
+	if err := readConfig(configFilePath, &appConfig); err != nil {
 		log.Fatalf("No valid config: %v", err)
 	} else {
 		log.Printf("Readed config file successfully!")
@@ -73,10 +65,7 @@ func main() {
 	appConfig.APIEndpoint += "[" + strings.Join(requestSuffix, ",") + "]"
 	log.Printf("API Endpoint: %s", appConfig.APIEndpoint)
 
-	err = sendTgMessage(
-		fmt.Sprintf("%s launched to watch the following tickers:\n%s", appConfig.BotName, strings.Join(requestSuffix, ", ")),
-	)
-	if err != nil {
+	if err := sendTgMessage(fmt.Sprintf("%s launched to watch the following tickers:\n%s", appConfig.BotName, strings.Join(requestSuffix, ", "))); err != nil {
 		log.Printf("Error sending TG message: %v", err)
 	}
 
@@ -102,8 +91,7 @@ func main() {
 			if exists {
 				if math.Abs(stockValue.Price-ticker.LastPrice) > ticker.Threshold {
 					log.Printf("%q price change (%f -> %f) has exceeded the threshold value %f", stockValue.Symbol, ticker.LastPrice, stockValue.Price, ticker.Threshold)
-					err := sendTgMessage(composeTgMessage(stockValue.Symbol, ticker.LastPrice, stockValue.Price))
-					if err != nil {
+					if err := sendTgMessage(composeTgMessage(stockValue.Symbol, ticker.LastPrice, stockValue.Price)); err != nil {
 						log.Printf("Error sending TG message: %v", err)
 						continue
 					} else {

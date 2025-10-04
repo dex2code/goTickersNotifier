@@ -59,8 +59,7 @@ func createDefaultConfig(fileName string) error {
 	}
 	defer fileDescr.Close()
 
-	err = os.WriteFile(fileName, jsonData, 0644)
-	if err != nil {
+	if err := os.WriteFile(fileName, jsonData, 0644); err != nil {
 		return fmt.Errorf("cannot write file %q: %w", fileName, err)
 	}
 
@@ -73,8 +72,7 @@ func readConfig(fileName string, config *configData) error {
 		return fmt.Errorf("cannot read data from %q: %w", fileName, err)
 	}
 
-	err = json.Unmarshal(jsonData, &config)
-	if err != nil {
+	if err := json.Unmarshal(jsonData, &config); err != nil {
 		return fmt.Errorf("cannot unmarshal config data: %w", err)
 	}
 
@@ -83,8 +81,7 @@ func readConfig(fileName string, config *configData) error {
 
 func createDefaultEnv(fileName string) error {
 	envContent := "BOT_TOKEN=\"\""
-	err := os.WriteFile(fileName, []byte(envContent), 0600)
-	if err != nil {
+	if err := os.WriteFile(fileName, []byte(envContent), 0600); err != nil {
 		return fmt.Errorf("cannot create %q file: %w", fileName, err)
 	}
 

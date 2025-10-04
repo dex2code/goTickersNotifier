@@ -22,8 +22,7 @@ func getStockData() ([]stockData, error) {
 
 	var rawStockAnswer []rawStockData = nil
 
-	err = json.Unmarshal(body, &rawStockAnswer)
-	if err != nil {
+	if err := json.Unmarshal(body, &rawStockAnswer); err != nil {
 		return nil, fmt.Errorf("cannot unmarshal API answer: %w", err)
 	}
 

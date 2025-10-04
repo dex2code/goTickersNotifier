@@ -52,8 +52,7 @@ func sendTgMessage(text string) error {
 	}
 
 	var tgResponse TelegramResponse
-	err = json.Unmarshal(body, &tgResponse)
-	if err != nil {
+	if err := json.Unmarshal(body, &tgResponse); err != nil {
 		return fmt.Errorf("cannot unmarshal TG answer: %w", err)
 	}
 
