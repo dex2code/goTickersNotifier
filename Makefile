@@ -1,5 +1,5 @@
 BINARY_NAME=goTickersNotifier
-VERSION=1.0.0
+VERSION=1.0.1
 
 build:
 	go build -o bin/$(BINARY_NAME) .
