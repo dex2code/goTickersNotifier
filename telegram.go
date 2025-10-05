@@ -26,11 +26,7 @@ func composeTgMessage(ticker string, lastPrice float64, curPrice float64) string
 
 	p := message.NewPrinter(language.English)
 
-	if lastPrice == 0.0 {
-		return p.Sprintf("%s %s %s: %g", appConfig.BotName, ind, ticker, curPrice)
-	}
-
-	return p.Sprintf("%s %s %s: %g ➡ %g", appConfig.BotName, ind, ticker, lastPrice, curPrice)
+	return p.Sprintf("%s %s %s %g", appConfig.BotName, ticker, ind, curPrice)
 }
 
 func sendTgMessage(text string) error {

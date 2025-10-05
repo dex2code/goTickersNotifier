@@ -100,7 +100,7 @@ func main() {
 						log.Printf("TG message sent successfully. New %q price: %f", stockValue.Symbol, ticker.LastPrice)
 					}
 				} else {
-					log.Printf("%q price change (%f ➡ %f) within the treshold value %f", stockValue.Symbol, ticker.LastPrice, stockValue.Price, ticker.Threshold)
+					log.Printf("%q price change (%f -> %f) within the treshold value %f", stockValue.Symbol, ticker.LastPrice, stockValue.Price, ticker.Threshold)
 				}
 			} else {
 				log.Printf("API returned an unexpected ticker name %q - not found in local data", stockValue.Symbol)
